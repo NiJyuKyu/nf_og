@@ -1,0 +1,76 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Adjustable Text Size',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: AdjustableTextSizePage(),
+    );
+  }
+}
+
+class AdjustableTextSizePage extends StatefulWidget {
+  @override
+  _AdjustableTextSizePageState createState() => _AdjustableTextSizePageState();
+}
+
+class _AdjustableTextSizePageState extends State<AdjustableTextSizePage> {
+  double _textSize = 16.0;
+
+  void _increaseTextSize() {
+    setState(() {
+      _textSize += 2.0;
+    });
+  }
+
+  void _decreaseTextSize() {
+    setState(() {
+      if (_textSize > 2.0) {
+        _textSize -= 2.0;
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Adjustable Text Size'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Adjustable Text',
+              style: TextStyle(fontSize: _textSize),
+            ),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                ElevatedButton(
+                  onPressed: _decreaseTextSize,
+                  child: Icon(Icons.remove),
+                ),
+                SizedBox(width: 20),
+                ElevatedButton(
+                  onPressed: _increaseTextSize,
+                  child: Icon(Icons.add),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
