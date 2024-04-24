@@ -1,0 +1,76 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'History Tabs Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: HistoryTabsScreen(),
+    );
+  }
+}
+
+class HistoryTabsScreen extends StatefulWidget {
+  @override
+  _HistoryTabsScreenState createState() => _HistoryTabsScreenState();
+}
+
+class _HistoryTabsScreenState extends State<HistoryTabsScreen> {
+  int _selectedIndex = 0;
+  final List<String> _tabs = ["Recent", "Favourites"];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('History Tabs Demo'),
+      ),
+      body: _selectedIndex == 0 ? RecentTab() : FavouritesTab(),
+      bottomNavigationBar: BottomNavigationBar(
+        items: _tabs.map((String title) {
+          return BottomNavigationBarItem(
+            icon: Icon(Icons.history),
+            label: title,
+          );
+        }).toList(),
+        currentIndex: _selectedIndex,
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+      ),
+    );
+  }
+}
+
+class RecentTab extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        'Recent Tab',
+        style: TextStyle(fontSize: 24),
+      ),
+    );
+  }
+}
+
+class FavouritesTab extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        'Favourites Tab',
+        style: TextStyle(fontSize: 24),
+      ),
+    );
+  }
+}
